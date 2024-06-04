@@ -18,6 +18,12 @@ time-reversal reconstructed image.
 * `run_simulation.py`: Plots the reconstruction for the parameters defined in the file.
 * `get_optimized_parameters.py`: Extracts the parameters corresponding to the sample with the highest FSIM from the checkpoint.
 
+## Other Files
+* `overrides/*.py`: Contains various patched files from the k-Wave Python library to allow time-reversal reconstruction to function properly.
+* `generateP0.py`: Generates the branch geometry target for use as the initial pressure mask.
+* `treeToImage.py`: A modified version of a similar function from the GenProcTree library that renders the branches as desired (such as without leaves).
+* `trials.py`: Defines how to perform each reconstruction trial and how to create an elliptical sensor mask.
+
 ## Notes
 When running `optimize.py`, some of the trials will result in errors.
 This is expected in order to force an early exit for parameters that

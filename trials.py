@@ -225,8 +225,6 @@ def make_cart_symmetric_horizontal_ellipse(
     t[num_points // 2] = max_angle / 2
   # Place points symmetrically
   for i in range(num_points // 2 - 1):
-    # t[i + 1] = t[i] + sensor_positions[i]
-    # t[num_points - i - 2] = t[num_points - i - 1] - sensor_positions[i]
     t[i + 1] = sensor_positions[i] * max_angle / 2
     t[num_points - i - 2] = max_angle - sensor_positions[i] * max_angle / 2
   

@@ -73,11 +73,13 @@ def objective(sensorPositions):
 
 class OptimizeGeometry(tune.Trainable):
   def setup(self, config: dict):
+    # Assign sensor positions according to chosen parameters
     self.sensorPositions = np.empty(sensorPoints // 2 - 1, float)
     for i in range(sensorPoints // 2 - 1):
       self.sensorPositions[i] = config[f"t{i}"]
   
   def step(self):
+    # Evaluate the objective function and return the average FSIM
     fsim = objective(self.sensorPositions)
     return {"avg_fsim": fsim}
 
@@ -89,6 +91,7 @@ for i in range(sensorPoints // 2 - 1):
   startingConfig[f"t{i}"] = (i + 1) / (sensorPoints / 2) / (1 - 1 / sensorPoints)
 
 algo = HyperOptSearch(points_to_evaluate=[startingConfig])
+# Uncomment below if restoring checkpoint
 # algo.restore(Path(f"./checkpoints/kwave-elliptical-geometry-optimization-{eccentricity:.2f}-{sensorPoints}-{sensorAngle:.3f}/searcher-state-2024-06-01_11-20-55.pkl").resolve())
 tuner = tune.Tuner(
   tune.with_resources(OptimizeGeometry, resources={"gpu": 1}),
@@ -107,6 +110,7 @@ tuner = tune.Tuner(
       checkpoint_at_end=False
     )
   ),
+  # Comment out below if restoring checkpoint
   param_space=config
 )
 tuner.fit()
