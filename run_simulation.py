@@ -189,7 +189,7 @@ regionMaskDraw.ellipse(
 # Create plots
 fig, ax = plt.subplots(2, 2)
 ax[0, 0].imshow(p0, cmap="inferno")
-ax[0, 0].set_title("Initial p0")
+ax[0, 0].set_title(f"Initial p0 (e = {eccentricity:.2f})")
 
 # Normalize the initial p0 and reconstructed data
 p0 = (p0 - np.min(p0)) / (np.max(p0) - np.min(p0))
